@@ -1,0 +1,453 @@
+<! DOCTYPE html>
+<html>
+    <head>
+        <title>WINPEMBA - Website Inovatif Pencari Teman Belajar</title>
+        <link rel="icon" type="image/x-icon" href="/winpembaminimized-removebg-preview.png">
+        <style>
+            @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+            body {
+                font-family: "Poppins", sans-serif;
+                margin: 0;
+                background: #f3f3f3;
+            }
+
+            #navbar {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                background: #fff;
+            }
+
+            .logowinpemba {
+                width: 100px;
+                height: 100px;
+                background: url("/Document from Siti Almeida M.png");
+                background-size: cover;
+            }
+
+            #taglinegede {
+                background: #2e51a1;
+                color: #fff;
+                display: flex;
+                padding: 30px;
+                justify-content: space-around;
+            }
+
+            .gedenih {
+                font-size: 30px;
+                font-weight: bold;
+            }
+
+            .kirinyabos {
+                align-self: center;
+            }
+
+            .kanannyabos {
+                width: 400px;
+                font-size: 12px;
+                text-align: justify;
+            }
+
+            .buttonbulat {
+                background: #eceaea;
+                color: #3c3c3c;
+                font-weight: bold;
+                padding: 10px;
+                text-align: center;
+                border-radius: 50px;
+                width: 200px;
+                margin: 0 auto;
+                cursor: pointer;
+            }
+
+            .paragrafcuy {
+                line-height: 1.8;
+                margin-bottom: 10px;
+            }
+
+            a {
+                text-decoration: none;
+                font-weight: bold;
+                color: #5683e9;
+            }
+
+            .paralinks a {
+                margin-right: 30px;
+            }
+
+            .caricaribos {
+                padding: 20px;
+                background: #eceaea;
+                border-radius: 50px;
+                width: 900px;
+                display: flex;
+                justify-content: space-between;
+            }
+
+            input[name="lokasi"] {
+                background: transparent;
+                border: 0;
+                width: 900px;
+                font-family: "Poppins", sans-serif;
+            }
+
+            select[name="mapel"] {
+                background: transparent;
+                border: 0;
+                font-family: "Poppins", sans-serif;
+                color: #757575;
+            }
+
+            highlight:after {
+                background: linear-gradient(0deg, #8cabf2 60%, transparent);
+                height: 3px;
+                width: 100%;
+                content: "";
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                right: 0;
+            }
+
+            highlight {
+                position: relative;
+                font-weight: bold;
+            }
+
+            #tentorsenggol {
+                overflow: hidden;
+                width: 700px;
+                display: flex;
+                border: 1px solid #2e51a1;
+                border-radius: 10px;
+                margin: 30px;
+                background: linear-gradient(90deg, white, #2e51a1);
+            }
+
+            .gambararyo {
+                background: url("/foto aryo png.png");
+                width: 400px;
+                height: 300px;
+                background-size: cover;
+                scale: 2;
+                background-position-y: 35px;
+                filter: grayscale(1) contrast(1.2);
+                z-index: 1;
+                position: relative;
+            }
+
+            .kananlagibos {
+                padding: 30px;
+                font-size: 13px;
+                color: #efefef;
+                align-self: center;
+            }
+
+            .judulsenggol {
+                font-size: 20px;
+                color: #ececec;
+                font-weight: bold;
+                text-shadow: 2px 2px 0 #000;
+            }
+
+            .kananlagibos > div {
+                margin-bottom: 5px;
+            }
+
+            .buttonsisenggol {
+                text-align: center;
+                font-weight: bold;
+                padding: 5px;
+                text-transform: uppercase;
+                border: 1px solid #ffffff;
+                border-radius: 10px;
+                width: 100px;
+                margin: 0 auto;
+                margin-top: 20px;
+                cursor: pointer;
+                z-index: 99;
+                position: relative;
+            }
+
+            #duatopcuy {
+                display: flex;
+                justify-content: space-evenly;
+            }
+
+            #postinganterkinibosq {
+                margin: 30px;
+                border: 1px solid #3b5ca7;
+                border-radius: 10px;
+                background: #fff;
+                width: 400px;
+                flex-grow: 1;
+            }
+
+            .isiannyanih {
+                padding: 20px;
+            }
+
+            .judulpostblog {
+                font-size: 25px;
+                font-weight: bold;
+                color: #395aa5;
+            }
+
+            .bagianatasboy {
+                display: flex;
+                align-items: center;
+                gap: 10px;
+            }
+
+            .garisboy {
+                height: 1px;
+                background: #3c5da7;
+                flex-grow: 1;
+            }
+
+            .namagweboy {
+                font-size: 12px;
+            }
+
+            .gambargweboy {
+                background: url(/gwej.jpg);
+                width: 30px;
+                height: 30px;
+                background-size: cover;
+                border-radius: 100%;
+                border: 3px solid #ffffff;
+                outline: 1px solid #3c5da7;
+            }
+
+            .bagiantengahboy {
+                font-size: 13px;
+                text-align: justify;
+                padding: 20px;
+            }
+
+            .bagianbawahboy {
+                display: flex;
+                align-items: center;
+                gap: 10px;
+            }
+
+            .linknyanih {
+                font-size: 12px;
+                color: #4564ab;
+                font-weight: bold;
+                cursor: pointer;
+            }
+
+            .judulbro {
+                font-size: 15px;
+                font-weight: bold;
+                color: #395aa6;
+                text-transform: uppercase;
+                padding-left: 10px;
+                padding-top: 2px;
+                text-align: center;
+            }
+
+            .gambarmikir {
+                background: url("https://images2.imgbox.com/61/e7/E8dqgeTx_o.png");
+                width: 350px;
+                height: 350px;
+                background-size: cover;
+            }
+
+            .bawahsigede {
+                margin-bottom: 10px;
+            }
+
+            .daftardaftar {
+                display: flex;
+                flex-direction: column;
+                font-size: 12px;
+                margin-bottom: 10px;
+            }
+
+            .judulnyaneh {
+                text-align: center;
+                font-weight: bold;
+                font-size: 40px;
+                text-transform: uppercase;
+                color: #4060a9;
+            }
+
+            .kelazkelaz {
+padding: 10px;
+    background: #4866ac;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    justify-content: space-around;
+            }
+
+            .pertinyiin {
+font-size: 13px;
+    margin-top: 15px;
+    text-align: center;
+    margin-bottom: 30px;
+            }
+
+            .tinyiipi {
+    font-size: 25px;
+    color: #fff;
+    font-weight: bold;
+    width: 500px;
+    text-align: justify;
+            }
+
+            .jiwibipi {
+text-align: justify;
+    color: #ffffff;
+    font-size: 13px;
+    line-height: 1.7;
+    width: 500px;
+            }
+
+            .jiwibipi a {
+                text-decoration: underline;
+                cursor: pointer;
+                color: #fff;
+            }
+
+            .contactus {
+    background: #4866ac;
+    color: #fff;
+    font-size: 15px;
+    padding: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+            }
+
+            .logowinpemba2 {
+    background: url(/winpembaminimized-removebg-preview.png);
+    width: 100px;
+    height: 100px;
+    background-size: contain;
+    background-repeat: no-repeat;
+            }
+
+            .tengahcuy {
+                    font-size: 25px;
+    font-weight: bold;
+            }
+
+            .daftarkontaknih {
+                    display: flex;
+    flex-direction: column;
+    font-size: 12px;
+            }
+
+            .sosmednih {
+                width: 15px;
+                height: 15px;
+            }
+
+            daftarnih {
+                display: flex;
+                align-items: center;
+            }
+        </style>
+
+    </head>
+    <body>
+        <div id="navbar">
+            <div class="logowinpemba"></div>
+            <div class="caricaribos">
+                <input type="text" id="lokasi" name="lokasi" placeholder="Ketikkan kabupaten/kotamu disini" />
+                <select id="mapel" name="mapel">
+                    <option value="default">Pilih mapel yang diinginkan...</option>
+                    <option value="mtk">Matematika</option>
+                    <option value="ipa">IPA</option>
+                </select>
+            </div>
+            <div class="paralinks">
+                <a href="#">Login</a>
+                <a href="#">Daftar</a>
+            </div>
+        </div>
+        <div id="taglinegede">
+            <div class="gambarmikir"></div>
+            <div class="kirinyabos">
+                <div class="gedenih">Pusing belajar MTK dan IPA sendirian? 😪</div>
+                <div class="bawahsigede">Jangan khawatir, <b>WINPEMBA</b> ada buatmu!</div>
+                <div class="daftardaftar">
+                    <daftar>✔ Bimbingan belajar <i>offline</i> ataupun <i>online</i> dengan teman belajar (tentor) kompeten serta berkualifikasi</daftar>
+                    <daftar>✔ <b>Gratis</b> 1 sesi <i>offline</i> maupun <i>online</i> perbulan</daftar>
+                    <daftar>✔ Jam belajar disesuaikan dengan siswa</daftar>
+                    <daftar>✔ <i>Blog</i> oleh para tentor sebagai penunjang belajar</daftar>    
+                </div>
+                <div class="buttonbulat">Yuk, daftar sekarang!</div>
+            </div>
+        </div>
+        <div id="duatopcuy">
+            <div id="tentorsenggol">
+                <div class="gambararyo"></div>
+                <div class="kananlagibos">
+                    <div class="judulsenggol">Tentor terbaik bulan ini: <highlightalso>Kak Aryo</highlightalso></div>
+                    <div class="subtitlesenggol">Tentor Matematika</div>
+                    <div class="ratingsisenggol">Rating: <b>4,8</b>/5 (10 siswa)</div>
+                    <div class="domisilisisenggol">Domisili: Kota Banjarmasin</div>
+                    <div class="buttonsisenggol">Pilih tentor</div>
+                </div>
+            </div>
+            <div id="postinganterkinibosq">
+                <div class="judulbro">
+                    Postingan blog terkini
+                </div>
+                <div class="isiannyanih">
+                    <div class="bagianatasboy">
+                        <div class="judulpostblog">0<sup>0</sup> = 1?</div>
+                        <div class="garisboy"></div>
+                        <div class="gambargweboy"></div>
+                        <div class="namagweboy">oleh Kak Meida</div>
+                    </div>
+                    <div class="bagiantengahboy">
+                        Hingga kini, hasil dari 0<sup>0</sup> masih menjadi bahan perdebatan di antara orang-orang yang mempelajari Matematika.
+                        Ada yang berpendapat bahwa hasil dari 0<sup>0</sup> tak terdefinisi, diikuti dengan pembuktian yang menggunakan sifat
+                        perpangkatan hingga menghasilkan 0/0. Namun, ada pendapat lain yang menyatakan bahwa 0<sup>0</sup> adalah 1. [...]
+                    </div>
+                    <div class="bagianbawahboy">
+                        <div class="garisboy"></div>
+                        <div class="linknyanih">Baca selengkapnya...</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="siapaneh">
+            <div class="judulnyaneh">Tentang kami</div>
+            <div class="kelazkelaz">
+                <div class="pertinyiin">
+                    <div class="tinyiipi">Siapa WINPEMBA?</div>
+                    <div class="jiwibipi"><b>WINPEMBA</b> (<i>Website</i> Inovatif Pencari Teman Belajar) adalah sebuah <i>website</i> yang diusung oleh salah satu tim PKM-K Universitas Muhammadiyah Banjarmasin, dimana WINPEMBA dihadirkan sebagai solusi dari kesulitan belajar siswa-siswa Indonesia, terutama siswa yang berdomisili di tiga kabupaten/kota Kalimantan Selatan: <b>Kota Banjarmasin</b>, <b>Kabupaten Barito Kuala</b>, dan <b>Kabupaten Banjar</b>.</div>
+                </div>
+                <div class="pertinyiin">
+                    <div class="tinyiipi">Berapa biaya satu sesi bimbingan di WINPEMBA?</div>
+                    <div class="jiwibipi">Untuk sesi <i>offline</i>, dikenakan biaya sebesar Rp85.000. Sementara untuk sesi <i>online</i>, dikenakan biaya sebesar Rp65.000. Namun, WINPEMBA memberikan <b>gratis</b> satu sesi <i>offline</i> ataupun <i>online</i> perbulannya.</div>
+                </div>
+                <div class="pertinyiin">
+                    <div class="tinyiipi">Siapa saja yang menjadi tentor dalam WINPEMBA?</div>
+                    <div class="jiwibipi">Sebagai langkah awal, yang menjadi tentor dalam WINPEMBA adalah anggota tim PKM-K. Namun WINPEMBA juga membuka pendaftaran bagi orang yang berminat serta berkualifikasi untuk menjadi tentor.</div>
+                </div>
+                <div class="pertinyiin">
+                    <div class="tinyiipi">Bagaimana cara memesan satu sesi di WINPEMBA?</div>
+                    <div class="jiwibipi">Cara memesan satu sesi di WINPEMBA antara lain dengan mendaftarkan akun terlebih dulu, kemudian isi formulir <a>Pesan Sesi (klik disini)</a>.</div>
+                </div>
+            </div>
+            <div class="contactus">
+                <div class="logowinpemba2"></div>
+                <div class="kirilagimen">
+                    <div class="tengahcuy">Hubungi kami!</div>
+                    <div class="daftarkontaknih">
+                        <daftarnih><img src="https://images2.imgbox.com/03/b0/UNiU5pDN_o.png" class="sosmednih">@pkmk_winpemba</daftarnih>
+                        <daftarnih><img src="https://images2.imgbox.com/58/d6/PsgFxUDh_o.png" class="sosmednih">+62 811 511 4382</daftarnih>
+                    </div>
+                </div>
+            </div>
+    </body>
+</html>
