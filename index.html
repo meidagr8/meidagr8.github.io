@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pemilihan Kelompok (Pilih Lagu Manual)</title>
+<style>
+  body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background: #fafafa;
+    font-family: Poppins, sans-serif;
+  }
+
+  h1 {
+    margin-bottom: 20px;
+  }
+
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    width: 220px;
+    text-align: center;
+    position: relative;
+  }
+
+  li {
+    padding: 15px 0;
+    font-weight: 600;
+    font-size: 1.1rem;
+  }
+
+  .arrow {
+    position: absolute;
+    left: -40px;
+    width: 0;
+    height: 0;
+    border-top: 15px solid transparent;
+    border-bottom: 15px solid transparent;
+    border-right: 20px solid red;
+    transition: top 0.2s ease;
+  }
+
+  select, button {
+    margin-top: 15px;
+    padding: 10px 15px;
+    font-size: 1rem;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+  }
+
+  button {
+    background: #3498db;
+    color: white;
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+  }
+
+  button:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+  }
+
+  #winner {
+    margin-top: 20px;
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #27ae60;
+  }
+</style>
+</head>
+<body>
+
+<h1>🎶 Pemilihan Kelompok 🎶</h1>
+
+<!-- pilih lagu -->
+<label for="songSelect"><strong>Pilih Lagu:</strong></label>
+<select id="songSelect">
+  <option value="lagu1.mp3">Lagu 1</option>
+  <option value="lagu2.mp3">Lagu 2</option>
+  <option value="lagu3.mp3">Lagu 3</option>
+  <option value="lagu4.mp3">Lagu 4</option>
+</select>
+
+<div style="position: relative; margin-top: 20px;">
+  <div class="arrow" id="arrow"></div>
+  <ul id="list"></ul>
+</div>
+
+<audio id="music"></audio>
+<button id="btn" onclick="start()">Mulai!</button>
+<div id="winner"></div>
+
+<script>
+let groups = ["Kelompok 1", "Kelompok 2", "Kelompok 3", "Kelompok 4"];
+
+const list = document.getElementById('list');
+const arrow = document.getElementById('arrow');
+const music = document.getElementById('music');
+const winnerText = document.getElementById('winner');
+const btn = document.getElementById('btn');
+const songSelect = document.getElementById('songSelect');
+
+let step = 0;
+let interval;
+
+function renderList() {
+  list.innerHTML = "";
+  groups.forEach(g => {
+    const li = document.createElement('li');
+    li.textContent = g;
+    list.appendChild(li);
+  });
+}
+
+renderList(); // tampilkan list awal
+
+function start() {
+  if (groups.length === 0) {
+    winnerText.textContent = "Semua kelompok sudah terpilih 🎉";
+    return;
+  }
+
+  const selectedSong = songSelect.value;
+  if (!selectedSong) {
+    alert("Pilih lagu dulu bro 😅");
+    return;
+  }
+
+  btn.disabled = true;
+  songSelect.disabled = true;
+  winnerText.textContent = "";
+
+  const items = document.querySelectorAll('#list li');
+  const duration = 10000 + Math.random() * 50000; // 10–60 detik
+
+  music.src = selectedSong;
+  music.currentTime = 0;
+  music.play();
+
+  step = 0;
+  moveArrow(items); // posisi awal arrow
+
+  interval = setInterval(() => {
+    if (groups.length === 0) return;
+    step = (step + 1) % items.length;
+    moveArrow(items);
+  }, 200);
+
+  // stop setelah durasi random
+  setTimeout(() => {
+    clearInterval(interval);
+    music.pause();
+
+    const chosen = groups[step];
+    winnerText.textContent = `🎉 ${chosen} terpilih! 🎉`;
+
+    // hapus dari list dan array
+    groups.splice(step, 1);
+    renderList();
+
+    // reset posisi arrow ke atas (kalau masih ada kelompok)
+    if (groups.length > 0) {
+      const newItems = document.querySelectorAll('#list li');
+      step = 0;
+      moveArrow(newItems);
+    }
+
+    btn.disabled = false;
+    songSelect.disabled = false;
+  }, duration);
+}
+
+function moveArrow(items) {
+  const li = items[step];
+  if (!li) return;
+  const topPos = li.offsetTop + li.offsetHeight / 2 - 15;
+  arrow.style.top = `${topPos}px`;
+}
+</script>
+
+</body>
+</html>
