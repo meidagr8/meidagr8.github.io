@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Pemilihan Kelompok (Pilih Lagu Manual)</title>
+<title>Pemilihan Kelompok (dengan Progress Bar)</title>
 <style>
   body {
     display: flex;
@@ -11,7 +11,7 @@
     align-items: center;
     justify-content: center;
     height: 100vh;
-    background: #fafafa;
+    background: #f7f7f7;
     font-family: Poppins, sans-serif;
   }
 
@@ -75,13 +75,38 @@
     font-weight: 600;
     color: #27ae60;
   }
+
+  /* --- Progress bar style --- */
+  .progress-container {
+    margin-top: 20px;
+    width: 300px;
+    height: 8px;
+    background: #ddd;
+    border-radius: 5px;
+    overflow: hidden;
+  }
+
+  .progress {
+    height: 100%;
+    width: 0%;
+    background: #3498db;
+    transition: width 0.25s linear;
+  }
+
+  .time-info {
+    font-size: 0.9rem;
+    margin-top: 5px;
+    display: flex;
+    justify-content: space-between;
+    width: 300px;
+    color: #555;
+  }
 </style>
 </head>
 <body>
 
 <h1>🎶 Pemilihan Kelompok 🎶</h1>
 
-<!-- pilih lagu -->
 <label for="songSelect"><strong>Pilih Lagu:</strong></label>
 <select id="songSelect">
   <option value="lagu1.mp3">Lagu 1</option>
@@ -96,6 +121,16 @@
 </div>
 
 <audio id="music"></audio>
+
+<!-- Progress bar -->
+<div class="progress-container">
+  <div class="progress" id="progress"></div>
+</div>
+<div class="time-info">
+  <span id="current">0:00</span>
+  <span id="duration">0:00</span>
+</div>
+
 <button id="btn" onclick="start()">Mulai!</button>
 <div id="winner"></div>
 
@@ -108,6 +143,9 @@ const music = document.getElementById('music');
 const winnerText = document.getElementById('winner');
 const btn = document.getElementById('btn');
 const songSelect = document.getElementById('songSelect');
+const progressBar = document.getElementById('progress');
+const currentTimeEl = document.getElementById('current');
+const durationEl = document.getElementById('duration');
 
 let step = 0;
 let interval;
@@ -121,7 +159,28 @@ function renderList() {
   });
 }
 
-renderList(); // tampilkan list awal
+renderList();
+
+// format waktu jadi mm:ss
+function formatTime(time) {
+  const minutes = Math.floor(time / 60);
+  const seconds = Math.floor(time % 60).toString().padStart(2, '0');
+  return `${minutes}:${seconds}`;
+}
+
+// update progress bar
+music.addEventListener('timeupdate', () => {
+  if (music.duration) {
+    const progress = (music.currentTime / music.duration) * 100;
+    progressBar.style.width = `${progress}%`;
+    currentTimeEl.textContent = formatTime(music.currentTime);
+  }
+});
+
+// tampilkan total durasi pas metadata udah kebaca
+music.addEventListener('loadedmetadata', () => {
+  durationEl.textContent = formatTime(music.duration);
+});
 
 function start() {
   if (groups.length === 0) {
@@ -144,10 +203,13 @@ function start() {
 
   music.src = selectedSong;
   music.currentTime = 0;
+  progressBar.style.width = "0%";
+  currentTimeEl.textContent = "0:00";
+  durationEl.textContent = "0:00";
   music.play();
 
   step = 0;
-  moveArrow(items); // posisi awal arrow
+  moveArrow(items);
 
   interval = setInterval(() => {
     if (groups.length === 0) return;
@@ -155,7 +217,7 @@ function start() {
     moveArrow(items);
   }, 200);
 
-  // stop setelah durasi random
+  // stop setelah durasi acak
   setTimeout(() => {
     clearInterval(interval);
     music.pause();
@@ -163,11 +225,9 @@ function start() {
     const chosen = groups[step];
     winnerText.textContent = `🎉 ${chosen} terpilih! 🎉`;
 
-    // hapus dari list dan array
     groups.splice(step, 1);
     renderList();
 
-    // reset posisi arrow ke atas (kalau masih ada kelompok)
     if (groups.length > 0) {
       const newItems = document.querySelectorAll('#list li');
       step = 0;
@@ -189,3 +249,4 @@ function moveArrow(items) {
 
 </body>
 </html>
+
