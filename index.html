@@ -5,46 +5,90 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Maju Jalan</title>
 <style>
-  body {
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: #121212;
+    color: white;
+    font-family: "Poppins", sans-serif;
+    gap: 50px;
+  }
+
+  .music-info {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
-    height: 100vh;
-    background: #f7f7f7;
-    font-family: Poppins, sans-serif;
+    background: #181818;
+    padding: 20px;
+    border-radius: 16px;
+    width: 250px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+  }
+
+  .music-info img {
+    width: 200px;
+    height: 200px;
+    border-radius: 12px;
+    object-fit: cover;
+    margin-bottom: 15px;
+  }
+
+  .song-title {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 5px;
+    text-align: center;
+  }
+
+  .artist {
+    color: #aaa;
+    font-size: 0.9rem;
+    text-align: center;
+  }
+
+  .main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
 
   h1 {
-    margin-bottom: 20px;
+    margin-bottom: 15px;
   }
 
   ul {
     list-style: none;
     padding: 0;
     margin: 0;
-    background: white;
+    background: #181818;
     border-radius: 10px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
     width: 220px;
     text-align: center;
     position: relative;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
   }
 
   li {
     padding: 15px 0;
-    font-weight: 600;
-    font-size: 1.1rem;
+    font-weight: 500;
+    font-size: 1.05rem;
+    border-bottom: 1px solid #222;
+  }
+
+  li:last-child {
+    border-bottom: none;
   }
 
   .arrow {
     position: absolute;
-    right: -40px;
+    right: -35px;
     width: 0;
     height: 0;
     border-top: 15px solid transparent;
     border-bottom: 15px solid transparent;
-    border-right: 20px solid red;
+    border-right: 20px solid #1DB954; /* Spotify green */
     transition: top 0.2s ease;
   }
 
@@ -53,19 +97,23 @@
     padding: 10px 15px;
     font-size: 1rem;
     border-radius: 8px;
-    border: 1px solid #ccc;
+    border: none;
+  }
+
+  select {
+    background: #222;
+    color: white;
   }
 
   button {
-    background: #3498db;
+    background: #1DB954;
     color: white;
-    border: none;
     font-weight: bold;
     cursor: pointer;
   }
 
   button:disabled {
-    background: #ccc;
+    background: #555;
     cursor: not-allowed;
   }
 
@@ -73,23 +121,23 @@
     margin-top: 20px;
     font-size: 1.2rem;
     font-weight: 600;
-    color: #27ae60;
+    color: #1DB954;
   }
 
-  /* --- Progress bar style --- */
   .progress-container {
     margin-top: 20px;
     width: 300px;
     height: 8px;
-    background: #ddd;
+    background: #333;
     border-radius: 5px;
     overflow: hidden;
+    cursor: pointer;
   }
 
   .progress {
     height: 100%;
     width: 0%;
-    background: #3498db;
+    background: #1DB954;
     transition: width 0.25s linear;
   }
 
@@ -99,44 +147,59 @@
     display: flex;
     justify-content: space-between;
     width: 300px;
-    color: #555;
+    color: #bbb;
   }
 </style>
 </head>
 <body>
 
-<h1>Pemilihan Kelompok</h1>
-
-<label for="songSelect"><strong>Pilih Lagu:</strong></label>
-<select id="songSelect">
-  <option value="Hindia - letdown.mp3">Hindia - letdown</option>
-  <option value="Feast - Metakritik.mp3">Feast - Metakritik</option>
-  <option value="Katakan Saja - Adikara.mp3">Katakan Saja - Adikara</option>
-  <option value="Kesan Pertama - Ardhito Pramono, Gustiwiw.mp3">Kesan Pertama - Ardhito Pramono, Gustiwiw</option>
-</select>
-
-<div style="position: relative; margin-top: 20px;">
-  <div class="arrow" id="arrow"></div>
-  <ul id="list"></ul>
+<!-- Info lagu di kiri -->
+<div class="music-info" id="musicInfo">
+  <img id="albumArt" src="album1.jpg" alt="Album Cover">
+  <div class="song-title" id="songTitle">letdown</div>
+  <div class="artist" id="artistName">Hindia</div>
 </div>
 
-<audio id="music"></audio>
+<!-- Main area -->
+<div class="main">
+  <h1>Pemilihan Kelompok</h1>
 
-<!-- Progress bar -->
-<div class="progress-container">
-  <div class="progress" id="progress"></div>
-</div>
-<div class="time-info">
-  <span id="current">0:00</span>
-  <span id="duration">0:00</span>
-</div>
+  <label for="songSelect"><strong>Pilih Lagu:</strong></label>
+  <select id="songSelect">
+    <option value="0">letdown - Hindia</option>
+    <option value="1">Metakritik - Feast</option>
+    <option value="2">Katakan Saja - Adikara</option>
+    <option value="3">Kesan Pertama - Ardhito Pramono, Gustiwiw</option>
+  </select>
 
-<button id="btn" onclick="start()">Mulai!</button>
-<div id="winner"></div>
+  <div style="position: relative; margin-top: 20px;">
+    <div class="arrow" id="arrow"></div>
+    <ul id="list"></ul>
+  </div>
+
+  <audio id="music"></audio>
+
+  <div class="progress-container" id="progressContainer">
+    <div class="progress" id="progress"></div>
+  </div>
+  <div class="time-info">
+    <span id="current">0:00</span>
+    <span id="duration">0:00</span>
+  </div>
+
+  <button id="btn" onclick="start()">Mulai!</button>
+  <div id="winner"></div>
+</div>
 
 <script>
-let groups = ["Kelompok 1", "Kelompok 2", "Kelompok 3", "Kelompok 4"];
+const songs = [
+  { src: "Hindia - letdown.mp3", title: "letdown", artist: "Hindia", cover: "album1.jpg" },
+  { src: "Feast - Metakritik.mp3", title: "Metakritik", artist: "Feast", cover: "album2.jpg" },
+  { src: "Katakan Saja - Adikara.mp3", title: "Katakan Saja", artist: "Adikara", cover: "album3.jpg" },
+  { src: "Kesan Pertama - Ardhito Pramono, Gustiwiw.mp3", title: "Kesan Pertama", artist: "Ardhito Pramono, Gusti Irwan Wibowo", cover: "album4.jpg" },
+];
 
+let groups = ["Kelompok 1", "Kelompok 2", "Kelompok 3", "Kelompok 4"];
 const list = document.getElementById('list');
 const arrow = document.getElementById('arrow');
 const music = document.getElementById('music');
@@ -144,8 +207,12 @@ const winnerText = document.getElementById('winner');
 const btn = document.getElementById('btn');
 const songSelect = document.getElementById('songSelect');
 const progressBar = document.getElementById('progress');
+const progressContainer = document.getElementById('progressContainer');
 const currentTimeEl = document.getElementById('current');
 const durationEl = document.getElementById('duration');
+const albumArt = document.getElementById('albumArt');
+const songTitle = document.getElementById('songTitle');
+const artistName = document.getElementById('artistName');
 
 let step = 0;
 let interval;
@@ -161,14 +228,13 @@ function renderList() {
 
 renderList();
 
-// format waktu jadi mm:ss
+// format waktu mm:ss
 function formatTime(time) {
   const minutes = Math.floor(time / 60);
   const seconds = Math.floor(time % 60).toString().padStart(2, '0');
   return `${minutes}:${seconds}`;
 }
 
-// update progress bar
 music.addEventListener('timeupdate', () => {
   if (music.duration) {
     const progress = (music.currentTime / music.duration) * 100;
@@ -177,9 +243,23 @@ music.addEventListener('timeupdate', () => {
   }
 });
 
-// tampilkan total durasi pas metadata udah kebaca
 music.addEventListener('loadedmetadata', () => {
   durationEl.textContent = formatTime(music.duration);
+});
+
+// Klik bar buat geser posisi
+progressContainer.addEventListener('click', (e) => {
+  const width = progressContainer.clientWidth;
+  const clickX = e.offsetX;
+  const duration = music.duration;
+  music.currentTime = (clickX / width) * duration;
+});
+
+songSelect.addEventListener('change', () => {
+  const song = songs[songSelect.value];
+  albumArt.src = song.cover;
+  songTitle.textContent = song.title;
+  artistName.textContent = song.artist;
 });
 
 function start() {
@@ -188,12 +268,7 @@ function start() {
     return;
   }
 
-  const selectedSong = songSelect.value;
-  if (!selectedSong) {
-    alert("Pilih lagu dulu bro 😅");
-    return;
-  }
-
+  const song = songs[songSelect.value];
   btn.disabled = true;
   songSelect.disabled = true;
   winnerText.textContent = "";
@@ -201,12 +276,13 @@ function start() {
   const items = document.querySelectorAll('#list li');
   const duration = 10000 + Math.random() * 50000; // 10–60 detik
 
-  music.src = selectedSong;
+  music.src = song.src;
   music.currentTime = 0;
+  music.play();
+
   progressBar.style.width = "0%";
   currentTimeEl.textContent = "0:00";
   durationEl.textContent = "0:00";
-  music.play();
 
   step = 0;
   moveArrow(items);
@@ -217,7 +293,6 @@ function start() {
     moveArrow(items);
   }, 200);
 
-  // stop setelah durasi acak
   setTimeout(() => {
     clearInterval(interval);
     music.pause();
